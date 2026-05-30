@@ -154,3 +154,8 @@ Clustering evaluation:
 1. Run preprocessing/preprocessing.py
 2. Run modeling/classification.py
 3. Run modeling/clustering.py
+
+
+![Lead Time](results/lead_time_feature_engineering.png)
+
+![Clustering](results/clustering_analysis.png)
