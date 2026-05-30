@@ -158,4 +158,4 @@ Clustering evaluation:
 
 ![Lead Time](results/lead_time_feature_engineering.png)
 
-![Clustering](results/clustering_analysis.png)
+![Clustering](results/clustering_plot.png)
