@@ -4,8 +4,9 @@
 Predict hotel reservation cancellations and analyze customer behavior patterns.
 
 ## Dataset
-Hotel booking demand dataset
-https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
+
+- Hotel Booking Demand Dataset  
+  https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand
 
 ## Project Structure
 - preprocessing/
