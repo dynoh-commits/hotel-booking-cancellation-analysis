@@ -61,7 +61,7 @@ Full Preprocessed Dataset
 → Random Forest / Boosting (RF, XGBoost, GBM, AdaBoost)
 → Threshold Optimization
 → Feature Importance Analysis
-→ Final Evaluation (Precision 0.724 / ROC-AUC 0.879)
+→ Final Evaluation (Precision 0.670 / ROC-AUC 0.858)
 ```
 
 ---
@@ -165,14 +165,14 @@ Evaluation approach:
 
 ### Final Model Performance
 
-Algorithm: Random Forest | `class_weight=balanced` | `n_estimators=300` | `threshold=0.5`
+Algorithm: Random Forest | `threshold=0.5`
 
-| Metric | Not Cancelled | Cancelled |
-|---|---|---|
-| Precision | 0.89 | **0.724** |
-| Recall | 0.81 | 0.568 |
-| F1-Score | 0.85 | 0.637 |
-| ROC-AUC | — | **0.879** |
+| Metric | Cancelled Class |
+|---|---|
+| Precision | **0.670** |
+| Recall | 0.573 |
+| F1-Score | 0.618 |
+| ROC-AUC | **0.858** |
 
 > Precision was adopted as the primary metric because a False Positive (predicting cancellation for a guest who actually shows up) carries significant business cost in the hotel domain.
 
@@ -211,13 +211,15 @@ Clustering evaluation:
 ```
 hotel-booking-cancellation-analysis/
 ├── dataset/
-│   └── hotel_bookings.csv
+│   ├── hotel_bookings.csv
+│   └── README_dataset.txt     # Dataset description and field definitions
 ├── preprocessing/
 │   ├── preprocessing.py       # Full preprocessing pipeline
 │   │                          #   Outputs: hotel_bookings_pre_eda.csv
 │   │                          #            hotel_bookings_sampling.csv  (→ clustering.py input)
 │   │                          #            hotel_bookings_preprocessed.csv  (→ limitation_analysis.py input)
 │   └── peak_season.py         # EDA: seasonal booking pattern analysis & peak/off-peak definition
+│                              #   Output: results/phase1/peak_season_analysis.png
 ├── phase1_clustering/
 │   ├── clustering.py          # Phase 1: KMeans segmentation + visualization
 │   │                          #   (Elbow, Silhouette, PCA scatter, cancellation rate, correlation charts)
@@ -241,9 +243,9 @@ hotel-booking-cancellation-analysis/
 │   │   └── boosting_feature_importance.png
 │   └── phase2/                # Visualization outputs from final.ipynb
 │       ├── data_preprocessing_steps.png
-│       ├── lead_time_distribution.png
+│       ├── lead_time_distribution_stratified_sampling_.png
 │       ├── final_model_performance.png
-│       ├── feature_importance_random_forest.png
+│       ├── feature_importance_random_forest_.png
 │       ├── actual_vs_predicted_cancellation_rate_by_segment.png
 │       ├── elbow_method.png
 │       └── k-means_clustering.png
