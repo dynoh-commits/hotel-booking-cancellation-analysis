@@ -9,8 +9,8 @@ The project follows an end-to-end data analytics pipeline:
 * Exploratory Data Analysis (EDA)
 * Feature Engineering
 * Data Preprocessing
-* Classification Modeling
 * Customer Clustering
+* Classification Modeling
 * Model Evaluation
 
 Main objective:
@@ -18,6 +18,9 @@ Main objective:
 * Predict booking cancellations
 * Identify customer behavior patterns
 * Propose business strategies for hotel revenue optimization
+
+### Research Flow & Model Transition
+The project initially explored customer segmentation through unsupervised clustering techniques. However, due to overlapping cancellation patterns between clusters, the final solution transitioned toward a unified tree-based supervised learning framework for more robust cancellation prediction.
 
 ---
 
@@ -159,8 +162,9 @@ resulting in significant performance improvement:
 
 | Metric | Phase 1 (Cluster-wise RF) | Phase 2 (Unified RF) |
 |--------|--------------------------|----------------------|
-| Precision | ~0.65 | **0.724** |
-| ROC-AUC | ~0.85 | **0.879** |
+| F1-score | ~0.68 | ~0.71 |
+| Precision | ~0.65 | 0.724 |
+| ROC-AUC | ~0.85 | 0.879 |
 
 ---
 
@@ -191,7 +195,7 @@ hotel-booking-cancellation-analysis/
 │   └── peak_season.py         # Seasonal pattern analysis
 ├── phase1_clustering/
 │   ├── clustering.py          # Phase 1: KMeans segmentation
-│   └── limitation_analysis.py     # Phase 1: Cluster-wise classification
+│   └── limitation_analysis.py     # Phase 1: Limitation analysis of cluster-based prediction
 │                              #   → Limitation found here
 ├── phase2_modeling/
 │   ├── final.ipynb            # Phase 2: Unified tree-based model (Main)
@@ -212,7 +216,7 @@ hotel-booking-cancellation-analysis/
 ```bash
 python preprocessing/preprocessing.py
 python phase1_clustering/clustering.py
-python phase1_clustering/classification.py
+python phase1_clustering/limitation_analysis.py
 ```
 
 ### Phase 2 — Unified Tree-based Model (Main)
@@ -260,22 +264,6 @@ preprocessing → exploratory clustering → tree-based classification → top-N
 | #3 | robust | onehot | gbm | 70.66% |
 | #4 | standard | onehot | gbm | 70.66% |
 | #5 | robust | onehot | soft_voting | 69.87% |
-
----
-
-## Top 5 Model Combinations (hotel_analyzer.py 실행 결과)
-
-| Rank | Scaler | Encoder | Model | Mean F1 (across clusters) |
-|------|--------|---------|-------|--------------------------|
-| #1 | robust | onehot | XGBoost | 70.71% |
-| #2 | standard | onehot | XGBoost | 70.71% |
-| #3 | robust | onehot | Gradient Boosting | 70.66% |
-| #4 | standard | onehot | Gradient Boosting | 70.66% |
-| #5 | robust | onehot | Soft Voting | 69.87% |
-
----
-## Project Overview
-The project initially explored customer segmentation through unsupervised clustering techniques. However, due to overlapping cancellation patterns between clusters, the final solution transitioned toward a unified tree-based supervised learning framework for more robust cancellation prediction.
 
 ![Lead Time](results/lead_time_feature_engineering.png)
 
