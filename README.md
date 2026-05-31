@@ -156,20 +156,74 @@ These results indicate that cluster-specific ensemble learning significantly imp
 ---
 
 ## 8. Project Structure
-```text
-- dataset/
-- preprocessing/
-- modeling/
-- results/
+
+```
+hotel-booking-cancellation-analysis/
+├── dataset/
+│   └── hotel_bookings.csv
+├── preprocessing/
+│   ├── preprocessing.py       # Full preprocessing pipeline
+│   └── peak_season.py         # Seasonal pattern analysis
+├── modeling/
+│   ├── classification.py      # Classification models & evaluation
+│   └── clustering.py          # KMeans clustering & visualization
+├── results/
+│   ├── lead_time_feature_engineering.png
+│   └── clustering_plot.png
+├── hotel_analyzer.py          # Open Source SW Contribution (see Section 10)
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
 ## 9. How to Run
 
-1. Run preprocessing/preprocessing.py
-2. Run modeling/classification.py
-3. Run modeling/clustering.py
+**Step-by-step pipeline:**
+1. Run `preprocessing/preprocessing.py`
+2. Run `modeling/classification.py`
+3. Run `modeling/clustering.py`
+
+**Open Source SW Contribution (hotel_analyzer.py):**
+```python
+from hotel_analyzer import hotel_analyzer
+
+results = hotel_analyzer(
+    csv_path="hotel_bookings.csv",
+    scalers=["robust", "standard", "minmax"],
+    encoders=["onehot"],
+    models=["rf", "xgb", "adaboost", "gbm", "bagging", "soft_voting", "lr", "dt"],
+    cv=5,
+    top_n=5,
+    verbose=True
+)
+
+print(results["best_combination"])
+```
+
+## 10. Open Source SW Contribution
+
+`hotel_analyzer.py` is a single top-level function designed in the style of
+scikit-learn's API. It runs the full end-to-end pipeline in one call:
+preprocessing → clustering → classification → top-N ranking.
+
+| Parameter | Description |
+|-----------|-------------|
+| `scalers` | List of scaling methods: `"robust"`, `"standard"`, `"minmax"` |
+| `encoders` | List of encoding methods: `"onehot"`, `"label"` |
+| `models` | List of models: `"rf"`, `"xgb"`, `"gbm"`, `"adaboost"`, `"bagging"`, `"soft_voting"`, `"lr"`, `"dt"` |
+| `cv` | Number of Stratified K-Fold splits (default: 5) |
+| `top_n` | Number of top combinations to return (default: 5) |
+
+**Best combination from our run:**
+
+| Rank | Scaler | Encoder | Model | Mean F1 |
+|------|--------|---------|-------|---------|
+| #1 | robust | onehot | xgb | 70.71% |
+| #2 | standard | onehot | xgb | 70.71% |
+| #3 | robust | onehot | gbm | 70.66% |
+| #4 | standard | onehot | gbm | 70.66% |
+| #5 | robust | onehot | soft_voting | 69.87% |
 
 
 ![Lead Time](results/lead_time_feature_engineering.png)
