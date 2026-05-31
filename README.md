@@ -38,8 +38,7 @@ Dataset characteristics:
 ## 3. Pipeline
 
 ```text
-EDA
-→ Peak/Off-peak season analysis
+Preprocessing
 → Feature Engineering
 → Stratified Sampling
 → Encoding & Scaling
@@ -92,6 +91,7 @@ Models used:
 * AdaBoost
 * Gradient Boosting
 * XGBoost
+* Soft Voting Ensemble
 
 Evaluation metrics:
 
@@ -137,20 +137,17 @@ Clustering evaluation:
 * Silhouette Score
 * PCA-based visualization
 
+---
 
-## Top 5 Model Combinations
+## Top 5 Model Combinations (hotel_analyzer.py 실행 결과)
 
-The following ensemble model combinations achieved the highest predictive performance across customer clusters using Stratified 5-Fold Cross Validation.
-
-| Rank | Model                   | Customer Cluster                      | Precision | Recall | F1-score |
-| ---- | ----------------------- | ------------------------------------- | --------- | ------ | -------- |
-| 1    | XGBoost                 | Cluster 2 (High-spending VIPs)        | 80.32%    | 84.33% | 82.27%   |
-| 2    | Gradient Boosting       | Cluster 2 (High-spending VIPs)        | 80.50%    | 83.91% | 82.16%   |
-| 3    | Soft Voting Ensemble    | Cluster 2 (High-spending VIPs)        | 79.01%    | 84.96% | 81.84%   |
-| 4    | Random Forest (Bagging) | Cluster 2 (High-spending VIPs)        | 83.08%    | 77.68% | 80.28%   |
-| 5    | Gradient Boosting       | Cluster 0 (Budget Personal Travelers) | 76.68%    | 77.48% | 77.05%   |
-
-These results indicate that cluster-specific ensemble learning significantly improves cancellation prediction performance, particularly for high-risk customer segments.
+| Rank | Scaler | Encoder | Model | Mean F1 (across clusters) |
+|------|--------|---------|-------|--------------------------|
+| #1 | robust | onehot | XGBoost | 70.71% |
+| #2 | standard | onehot | XGBoost | 70.71% |
+| #3 | robust | onehot | Gradient Boosting | 70.66% |
+| #4 | standard | onehot | Gradient Boosting | 70.66% |
+| #5 | robust | onehot | Soft Voting | 69.87% |
 
 
 ---
